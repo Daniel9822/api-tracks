@@ -7,7 +7,11 @@ const { tracksModel } = require('../models')
  * @param {*} req 
  * @param {*} res 
  */
-const getItem = (req, res) => {
+const getItem = async (req, res) => {
+    const { id } = req.params
+
+    const data = await tracksModel.findById({_id: id})
+    res.send({data})
 
 };
 
