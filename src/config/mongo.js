@@ -9,7 +9,7 @@ const mongoConnect = () => {
             useUnifiedTopology: true,
         })
         .then((res) => console.log("DATABASE CONNECTED"))
-        .catch((res) => console.log(res));
+        .catch((res) => console.log("ERROR CONNECTION"));
 };
 
 module.exports = mongoConnect;
