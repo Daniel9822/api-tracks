@@ -17,4 +17,3 @@ fs.readdirSync(PATH).filter((filename) => {
 });
 
 module.exports = router;
-

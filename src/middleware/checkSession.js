@@ -1,4 +1,5 @@
-const user = require("../models/nosql/user");
+const { userModel } = require("../models");
+const { handleHttpError } = require("../utils/handleError");
 const { verify } = require("../utils/handleToken");
 
 const checkSession = async (req, res, next) => {
@@ -6,20 +7,20 @@ const checkSession = async (req, res, next) => {
 
     try {
         if (!authorization) {
-            return res.status(401).send("Unauthorized user");
+            handleHttpError(res, "Unauthorized user", 401);
         }
         const token = authorization.split(" ").pop();
         const verifyToken = verify(token);
 
         if (!verifyToken) {
-            return res.status(401).send("Unauthorized user");
+            handleHttpError(res, "Unauthorized user", 401);
         }
 
-        const findUser = await user.findById(verifyToken._id)
-        req.user = findUser
+        const findUser = await userModel.findById(verifyToken._id);
+        req.user = findUser;
         next();
     } catch (error) {
-        res.status(401).send(error.message)
+        handleHttpError(res, error.message, 401);
     }
 };
 
