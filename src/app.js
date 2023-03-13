@@ -1,12 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const path = require('path')
+const path = require("path");
 const cors = require("cors");
 const mongoConnect = require("./config/mongo");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'storage')));
+app.use(express.static(path.join(__dirname, "storage")));
 app.use(express.json());
 app.use(cors());
 

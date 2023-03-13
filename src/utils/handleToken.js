@@ -1,24 +1,23 @@
-const jwt = require('jsonwebtoken');
-const SECRET_WORD = process.env.SECRET_WORD
+const jwt = require("jsonwebtoken");
+const SECRET_WORD = process.env.SECRET_WORD;
 
 const sing = (user) => {
     try {
-        const { _id, name } = user
-        return jwt.sign({_id, name}, SECRET_WORD, {
-            expiresIn: '1d'
-        })
+        const { _id, name } = user;
+        return jwt.sign({ _id, name }, SECRET_WORD, {
+            expiresIn: "1d",
+        });
     } catch (error) {
-        throw new Error('opps something went wrong')        
+        throw new Error("opps something went wrong");
     }
-}
-
+};
 
 const verify = (token) => {
     try {
-        return jwt.verify(token, SECRET_WORD)
+        return jwt.verify(token, SECRET_WORD);
     } catch (error) {
-        throw new Error(error.message)
+        throw new Error(error.message);
     }
-}
+};
 
-module.exports = { sing, verify }
+module.exports = { sing, verify };
