@@ -17,7 +17,7 @@ const verify = (token) => {
     try {
         return jwt.verify(token, SECRET_WORD)
     } catch (error) {
-        throw new Error('opps something went wrong')
+        throw new Error(error.message)
     }
 }
 

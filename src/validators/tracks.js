@@ -17,7 +17,7 @@ const validateCreateItem = [
 ]
 
 const validateQueryItem = [
-    check('id', 'the param id is required').exists().notEmpty()
+    check('id', 'the param id is required').exists().notEmpty().isMongoId()
 ]
 
 module.exports = { validateCreateItem, validateQueryItem }
