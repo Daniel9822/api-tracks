@@ -5,6 +5,8 @@ const { loggerStream } = require("./utils/handleLogs");
 const path = require("path");
 const cors = require("cors");
 const mongoConnect = require("./config/mongo");
+const swaggerUi = require('swagger-ui-express')
+const openApiConf = require('./doc/swagger')
 
 const app = express();
 
@@ -20,7 +22,9 @@ morgan(app, {
     },
     filterParameters: ["password"],
 });
+
 app.use("/api", require("./routes"));
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(openApiConf))
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
