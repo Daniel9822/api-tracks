@@ -2,29 +2,12 @@ const supertest = require("supertest");
 const app = require("../app");
 const { userNotExist } = require("../middleware/userExist");
 const { userModel } = require("../models");
-
-const authRegister = {
-    name: "test",
-    age: 20,
-    email: "test@test.com",
-    password: "",
-};
-const authRegisterSuccess = {
-    name: "test",
-    age: 20,
-    email: "test@test.com",
-    password: "123456",
-};
-
-const loginUser = {
-    email: "test@test.com",
-    password: "123456",
-};
-
-const userNotExistLogin = {
-    email: "notexist@test.com",
-    password: "123456",
-};
+const {
+    authRegister,
+    authRegisterSuccess,
+    loginUser,
+    userNotExistLogin,
+} = require("./helper/helperData");
 
 beforeAll(async () => {
     await userModel.deleteMany();
@@ -70,5 +53,15 @@ describe("[AUTH] Routes auth", () => {
             .send(userNotExistLogin);
 
         expect(notExist.statusCode).toEqual(404);
+    });
+
+    test("should return 401 when password is invalid", async () => {
+        const passwordInvalid = { ...loginUser, password: "dddd3" };
+
+        const response = await supertest(app)
+            .post("/api/auth/login")
+            .send(passwordInvalid);
+
+        expect(response.statusCode).toEqual(401)
     });
 });

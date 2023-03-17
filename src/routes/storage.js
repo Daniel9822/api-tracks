@@ -33,7 +33,7 @@ const router = express.Router();
  *        '422':
  *          description: Error validation.
  */
-router.get("/", getItem);
+router.get("/", getItems);
 
 
 /**
@@ -65,7 +65,7 @@ router.get("/", getItem);
  *                  '403':
  *                      description: validation error
  */
-router.get("/:id", validateQueryItem, getItems);
+router.get("/:id", validateQueryItem, getItem);
 
 
 /**

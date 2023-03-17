@@ -18,13 +18,12 @@ const userExist = async (req, res, next) => {
     try {
         const { email } = req.body;
         const searchUser = await user.findOne({ email });
-        if (searchUser) {
-            req.userInfo = searchUser;
-            next();
+        if (!searchUser) {
+            res.status(404).send("user not exist");
             return;
         }
-
-        res.status(404).send("user not exist");
+        req.userInfo = searchUser;
+        next();
     } catch (error) {
         res.status(500).send("oppps something went wrong");
     }

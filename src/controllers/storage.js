@@ -5,23 +5,23 @@ const { handleHttpError } = require("../utils/handleError");
 
 const PUBLIC_URL = process.env.PUBLIC_URL;
 
-const getItem = async (req, res) => {
+const getItems = async (req, res) => {
     try {
         const searchData = await storageModel.find({});
-        return res.status(200).send(searchData);
+        return res.status(200).send({data: searchData});
     } catch (error) {
         handleHttpError(res, "ERROR_GET_ITEM", 500);
     }
 };
 
-const getItems = async (req, res) => {
+const getItem = async (req, res) => {
     try {
         const { id } = matchedData(req);
         const searchData = await storageModel.findById({ _id: id });
-        return res.status(200).send(searchData);
+        return res.status(200).send({data: searchData});
     } catch (error) {
         console.log(error.message);
-        handleHttpError(res, "ERROR_GET_ITEMS", 500);
+        handleHttpError(res, "ERROR_GET_ITEMS", 404);
     }
 };
 
@@ -32,6 +32,7 @@ const createItem = async (req, res) => {
         url: `${PUBLIC_URL}/${file.filename}`,
     };
     const data = await storageModel.create(fileData);
+    res.status(201)
     res.send({ data });
 };
 
