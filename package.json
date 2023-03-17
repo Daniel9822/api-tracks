@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./src/app.js",
-    "test": "cross-env NODE_ENVIRONMENT=test jest --detectOpenHandles",
+    "test": "cross-env NODE_ENVIRONMENT=test jest --silent --detectOpenHandles",
     "test:watch": "cross-env NODE_ENVIRONMENT=test jest --watch --silent --detectOpenHandles"
   },
   "keywords": [],
@@ -37,6 +37,7 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "globalTeardown":"./global-kill.js"
   }
 }
