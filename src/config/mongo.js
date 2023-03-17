@@ -8,8 +8,6 @@ const mongoConnect = () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
-        .then((res) => console.log("DATABASE CONNECTED"))
-        .catch((res) => console.log("ERROR CONNECTION"));
 };
 
 module.exports = mongoConnect;

@@ -5,8 +5,8 @@ const { loggerStream } = require("./utils/handleLogs");
 const path = require("path");
 const cors = require("cors");
 const mongoConnect = require("./config/mongo");
-const swaggerUi = require('swagger-ui-express')
-const openApiConf = require('./doc/swagger')
+const swaggerUi = require("swagger-ui-express");
+const openApiConf = require("./doc/swagger");
 
 const app = express();
 
@@ -24,11 +24,15 @@ morgan(app, {
 });
 
 app.use("/api", require("./routes"));
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(openApiConf))
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(openApiConf));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`app listening on port ${port}`);
-});
+const NODE_ENVIRONMENT = process.env.NODE_ENVIRONMENT || 'development';
+
+if (NODE_ENVIRONMENT !== "test") {
+    app.listen(port);
+}
 
 mongoConnect();
+
+module.exports = app;

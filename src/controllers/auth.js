@@ -13,7 +13,7 @@ const registerController = async (req, res) => {
         return res.status(201).send(register);
     } catch (error) {
         console.log(error);
-        handleHttpError(res, "ERROR_REGISTER_CONTROLLER", 500);
+        handleHttpError(res, "ERROR_REGISTER_CONTROLLER", 400);
     }
 };
 
