@@ -12,8 +12,9 @@ const {
     validateQueryItem,
 } = require("../validators/tracks");
 
-const router = express.Router();
+const { checkSession } = require("../middleware/checkSession");
 
+const router = express.Router();
 
 /**
  *
@@ -23,7 +24,7 @@ const router = express.Router();
  *      tags:
  *        - tracks
  *      summary: "Get all tracks"
- *      description: Get all tracks 
+ *      description: Get all tracks
  *      security:
  *        - BearerAuth: []
  *      responses:
@@ -38,7 +39,7 @@ const router = express.Router();
  *        '422':
  *          description: Error validation.
  */
-router.get("/", getItems);
+router.get("/", checkSession, getItems);
 
 /**
  *
@@ -48,7 +49,7 @@ router.get("/", getItems);
  *      tags:
  *        - tracks
  *      summary: "Get all tracks"
- *      description: Get all tracks 
+ *      description: Get all tracks
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -67,7 +68,7 @@ router.get("/", getItems);
  *        '422':
  *          description: Error validation.
  */
-router.get("/:id", validateQueryItem, getItem);
+router.get("/:id",checkSession, validateQueryItem, getItem);
 
 /**
  *
@@ -77,7 +78,7 @@ router.get("/:id", validateQueryItem, getItem);
  *      tags:
  *        - tracks
  *      summary: "Get all tracks"
- *      description: Get all tracks 
+ *      description: Get all tracks
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -98,7 +99,7 @@ router.get("/:id", validateQueryItem, getItem);
  *        '401':
  *          description: Unauthorized user
  */
-router.get("/restore/:id", restoreItem);
+router.patch("/restore/:id", checkSession, restoreItem);
 
 /**
  *
@@ -108,7 +109,7 @@ router.get("/restore/:id", restoreItem);
  *      tags:
  *        - tracks
  *      summary: "Create a track"
- *      description: Create a new track 
+ *      description: Create a new track
  *      security:
  *        - BearerAuth: []
  *      requestBody:
@@ -124,7 +125,7 @@ router.get("/restore/:id", restoreItem);
  *        '401':
  *          description: Unauthorized user
  */
-router.post("/", validateCreateItem, createItem);
+router.post("/",checkSession, validateCreateItem, createItem);
 
 /**
  * Get all storages
@@ -134,7 +135,7 @@ router.post("/", validateCreateItem, createItem);
  *      tags:
  *        - tracks
  *      summary: "Update track"
- *      description: Update track  
+ *      description: Update track
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -160,7 +161,7 @@ router.post("/", validateCreateItem, createItem);
  *        '401':
  *          description: Unauthorized user
  */
-router.put("/:id", validateQueryItem, validateCreateItem, updateItem);
+router.put("/:id",checkSession, validateQueryItem, validateCreateItem, updateItem);
 
 /**
  * Get all storages
@@ -170,7 +171,7 @@ router.put("/:id", validateQueryItem, validateCreateItem, updateItem);
  *      tags:
  *        - tracks
  *      summary: "Delete a track"
- *      description: Delete one track 
+ *      description: Delete one track
  *      security:
  *        - BearerAuth: []
  *      parameters:
@@ -185,6 +186,6 @@ router.put("/:id", validateQueryItem, validateCreateItem, updateItem);
  *        '401':
  *          description: Unauthorized user
  */
-router.delete("/:id", validateQueryItem, deleteItem);
+router.delete("/:id",checkSession, validateQueryItem, deleteItem);
 
 module.exports = router;

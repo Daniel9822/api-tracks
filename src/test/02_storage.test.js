@@ -34,7 +34,7 @@ describe("[STORAGE] Routes storage", () => {
     });
 
     test("should get all created items", async () => {
-        const response = await supertest(app).get("/api/storage");
+        const response = await supertest(app).get("/api/storage").set('Authorization', `Bearer ${token}`)
 
         expect(response.statusCode).toEqual(200);
         expect(response.body).toHaveProperty("data");

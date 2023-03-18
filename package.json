@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./src/app.js",
-    "test": "cross-env NODE_ENVIRONMENT=test jest --silent --detectOpenHandles",
-    "test:watch": "cross-env NODE_ENVIRONMENT=test jest --watch --silent --detectOpenHandles"
+    "test": "cross-env NODE_ENVIRONMENT=test jest --coverage --silent --detectOpenHandles",
+    "test:watch": "cross-env NODE_ENVIRONMENT=test jest --coverage --watch --silent --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +38,7 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "globalTeardown":"./global-kill.js"
+    "globalTeardown":"./global-kill.js",
+    "coverageReporters":["json", "html"]
   }
 }

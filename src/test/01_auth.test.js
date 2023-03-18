@@ -64,4 +64,8 @@ describe("[AUTH] Routes auth", () => {
 
         expect(response.statusCode).toEqual(401)
     });
+
+    // test('the user should have a valid token', async() => {
+    //     const 
+    // })
 });

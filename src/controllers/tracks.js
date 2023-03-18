@@ -25,9 +25,9 @@ const getItem = async (req, res) => {
 const getItems = async (req, res) => {
     try {
         const data = await tracksModel.findAllData();
-        res.send({ data });
+        res.status(200).send({ data });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         handleHttpError(res, "ERROR_GET_ITEMS", 500);
     }
 };
@@ -41,8 +41,7 @@ const createItem = async (req, res) => {
     try {
         const body = matchedData(req);
         const data = await tracksModel.create(body);
-        res.status(201)
-        res.send({ data });
+        res.status(201).send({ data });
     } catch (error) {
         handleHttpError(res, "ERROR_CREATE_ITEM");
     }
@@ -59,9 +58,10 @@ const updateItem = async (req, res) => {
         const updateTrack = await tracksModel.findByIdAndUpdate(id, body, {
             new: true,
         });
-
-        return res.send(updateTrack);
+        res.status(200);
+        res.send({ data: updateTrack });
     } catch (error) {
+        console.log(error);
         handleHttpError(res, "ERROR_UPDATE_ITEM", 500);
     }
 };
@@ -75,7 +75,7 @@ const deleteItem = async (req, res) => {
     try {
         const { id } = req.params;
         const findAndDelete = await tracksModel.delete({ _id: id });
-        return res.send(findAndDelete);
+        return res.send({ data: findAndDelete });
     } catch (error) {
         handleHttpError(res, "ERROR_DELETE_ITEM", 500);
     }
@@ -85,7 +85,7 @@ const restoreItem = async (req, res) => {
     try {
         const { id } = req.params;
         const restore = await tracksModel.restore({ _id: id });
-        res.send(restore);
+        res.send({ data: restore });
     } catch (error) {
         handleHttpError(res, "ERROR_RESTORE_ITEM", 404);
     }

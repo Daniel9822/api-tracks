@@ -5,6 +5,7 @@ const {
     getItems,
     deleteItem,
 } = require("../controllers/storage");
+const { checkSession } = require("../middleware/checkSession");
 const uploadMiddleware = require("../utils/handleUpload");
 const { validateQueryItem } = require("../validators/tracks");
 const router = express.Router();
@@ -33,7 +34,7 @@ const router = express.Router();
  *        '422':
  *          description: Error validation.
  */
-router.get("/", getItems);
+router.get("/",checkSession, getItems);
 
 
 /**
@@ -65,7 +66,7 @@ router.get("/", getItems);
  *                  '403':
  *                      description: validation error
  */
-router.get("/:id", validateQueryItem, getItem);
+router.get("/:id", checkSession, validateQueryItem, getItem);
 
 
 /**
@@ -101,6 +102,7 @@ router.get("/:id", validateQueryItem, getItem);
  */
 router.post(
     "/",
+    checkSession,
     uploadMiddleware.single("myfile"),
     validateQueryItem,
     createItem
@@ -132,6 +134,6 @@ router.post(
  *        '422':
  *          description: Error validation.
  */
-router.delete("/:id", validateQueryItem, deleteItem);
+router.delete("/:id",checkSession, validateQueryItem, deleteItem);
 
 module.exports = router;

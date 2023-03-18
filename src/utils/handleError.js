@@ -1,6 +1,5 @@
 const handleHttpError = (res, message, code = 403) => {
-    res.status(code);
-    res.send(message);
+    res.status(code).send(message)
 };
 
 module.exports = {
